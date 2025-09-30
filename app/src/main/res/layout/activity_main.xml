@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="#5DFFFFFF"
+        app:srcCompat="@drawable/logo"
+        android:layout_gravity="center_horizontal"
+        />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="#01FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+        <TextView
+            android:id="@+id/textViewClubDeportivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:text="Club deportivo 14"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.434"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="150dp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/custom_edit_text"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/lightblue"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:radius="30dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@id/textViewClubDeportivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F4F4F4"
+                android:fontFamily="@font/lato"
+                android:text="Iniciar sesion"
+                android:textAlignment="center"
+                android:textColor="#FFF7F7"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/textUser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_edit_text"
+                android:backgroundTint="#FBFBFB"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:paddingLeft="20dp"
+                android:ems="10"
+                android:hint="Usuario"
+                android:textColor="@color/black"
+                android:textColorHint="@color/cardview_dark_background" />
+
+            <EditText
+                android:id="@+id/textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edit_text"
+                android:backgroundTint="#FFFFFF"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:paddingLeft="20dp"
+                android:ems="10"
+                android:hint="Contraseña"
+                android:textColor="@color/black"
+                android:textColorHint="@color/cardview_dark_background" />
+
+            <Button
+                android:id="@+id/btnIngresar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:backgroundTint="@color/blue"
+                android:fontFamily="@font/lato"
+                android:text="@string/ingresar"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnRegistrarse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:backgroundTint="@color/blue"
+                android:fontFamily="@font/lato"
+                android:text="@string/registrarse"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtRta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/lato"
+        android:text="Olvidaste tu contraseña?"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="581dp" />
+
+</LinearLayout>
