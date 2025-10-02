@@ -15,9 +15,6 @@
             android:name=".MenuPrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".PantallaPrincipal"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
