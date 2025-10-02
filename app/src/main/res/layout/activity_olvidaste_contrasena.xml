@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/menu_principal"
+    android:id="@+id/olvidaste_contrasena"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".OlvidasteContrasenaActivity">
 
 
     <ImageView
@@ -70,10 +70,9 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#F4F4F4"
                 android:fontFamily="@font/lato"
-                android:text="Iniciar sesion"
-                android:textAlignment="center"
+                android:text="Introduce tu email para enviarte un enlace de recuperación:"
                 android:textColor="#FFF7F7"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -85,27 +84,15 @@
                 android:backgroundTint="#FBFBFB"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:paddingLeft="20dp"
+                android:fontFamily="@font/lato"
                 android:ems="10"
                 android:hint="Usuario"
                 android:textColor="@color/black"
                 android:textColorHint="@color/cardview_dark_background" />
 
-            <EditText
-                android:id="@+id/textPassword"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edit_text"
-                android:backgroundTint="#FFFFFF"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:paddingLeft="20dp"
-                android:ems="10"
-                android:hint="Contraseña"
-                android:textColor="@color/black"
-                android:textColorHint="@color/cardview_dark_background" />
 
             <Button
-                android:id="@+id/btnIngresar"
+                android:id="@+id/btnEnviar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -113,11 +100,10 @@
                 android:layout_marginRight="40dp"
                 android:backgroundTint="@color/blue"
                 android:fontFamily="@font/lato"
-                android:text="@string/ingresar"
+                android:text="Enviar"
                 android:textSize="20sp" />
-
             <Button
-                android:id="@+id/btnRegistrarse"
+                android:id="@+id/btnVolver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -125,32 +111,13 @@
                 android:layout_marginRight="40dp"
                 android:backgroundTint="@color/blue"
                 android:fontFamily="@font/lato"
-                android:text="@string/registrarse"
+                android:text="Volver"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/txtRta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
         </LinearLayout>
 
 
 
     </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/lato"
-        android:text="Olvidaste tu contraseña?"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="581dp" />
 
 </LinearLayout>
