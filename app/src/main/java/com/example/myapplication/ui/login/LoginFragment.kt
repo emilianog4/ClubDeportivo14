@@ -15,11 +15,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.example.myapplication.databinding.FragmentLoginBinding
 
 import com.example.myapplication.R
 
-class LoginFragment : Fragment() {
+/*class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
@@ -130,4 +129,4 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+}*/

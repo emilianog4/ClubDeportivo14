@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".MenuPrincipalActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/text_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Bienvenido/a 'Admin'"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/lato"
+            android:textSize="20sp" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/btn_socios"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"
+                android:text="Socios"
+                 />
+
+            <Button
+                android:id="@+id/btn_actividades"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"
+                android:text="Actividades" />
+
+            <Button
+                android:id="@+id/btn_pagos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"                android:text="Pagos" />
+
+            <Button
+                android:id="@+id/btn_carnet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"                android:text="Carnet" />
+
+            <Button
+                android:id="@+id/btn_rutinas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"
+                android:text="Rutinas" />
+
+            <Button
+                android:id="@+id/btn_nutricion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/blue"
+                android:text="Nutrición" />
+
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btn_profesores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/lato"
+            android:textColor="@color/blue"
+            android:text="Profesores" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="16dp"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Notificaciones:"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/lato"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Cuota de Juan Perez vence en 3 días"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/lato"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Nueva clase: Spinning - Mar 18:00"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/lato"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Turno nutrición de Ana - Hoy 15:00"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/lato"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="64dp" />
+
+    </LinearLayout>
+
+</ScrollView>
