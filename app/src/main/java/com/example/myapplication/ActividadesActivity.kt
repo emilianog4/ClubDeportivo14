@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,59 +11,15 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class MenuPrincipalActivity : AppCompatActivity() {
+class ActividadesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_menu_principal)
-
-        // Edge-to-Edge
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.menu)) { v, insets ->
+        setContentView(R.layout.activity_actividades)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.actividades)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-
-        val btn_actividades = findViewById<Button>(R.id.btn_actividades)
-        btn_actividades.setOnClickListener {
-            val intent = Intent(this, ActividadesActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_socios = findViewById<Button>(R.id.btn_socios)
-        btn_socios.setOnClickListener {
-            val intent = Intent(this, SocioActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_pagos = findViewById<Button>(R.id.btn_pagos)
-        btn_pagos.setOnClickListener {
-            val intent = Intent(this, PagosActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_carnet = findViewById<Button>(R.id.btn_carnet)
-        btn_carnet.setOnClickListener {
-            val intent = Intent(this, CarnetDigitalActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_rutinas = findViewById<Button>(R.id.btn_rutinas)
-        btn_rutinas.setOnClickListener {
-            val intent = Intent(this, RutinasActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_nutricion = findViewById<Button>(R.id.btn_nutricion)
-        btn_nutricion.setOnClickListener {
-            val intent = Intent(this, FichaMedicaNutricionActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btn_profesores = findViewById<Button>(R.id.btn_profesores)
-        btn_profesores.setOnClickListener {
-            val intent = Intent(this, ProfesoresActivity::class.java)
-            startActivity(intent)
         }
 
         // BottomNavigationView
@@ -72,7 +27,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MenuPrincipalActivity::class.java)
+                    // Opcional: para que no se acumulen activities en la pila
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_qr -> {
@@ -80,7 +38,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    showUserMenu()
+                    showUserMenu() // Ahora se usa BottomSheetDialog
                     true
                 }
                 else -> false

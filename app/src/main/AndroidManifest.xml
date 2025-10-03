@@ -22,6 +22,24 @@
             android:exported="true"/>
         <activity
             android:name=".SocioActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ActividadesActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".PagosActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".CarnetDigitalActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".RutinasActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".FichaMedicaNutricionActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ProfesoresActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
