@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,24 +18,29 @@ class ActividadesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_actividades)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.actividades)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val btn_inscripcion = findViewById<Button>(R.id.btn_inscripcion)
-        btn_inscripcion.setOnClickListener {
+
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_actividades)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        val btnInscripcion = findViewById<Button>(R.id.btn_inscripcion)
+        btnInscripcion.setOnClickListener {
             val intent = Intent(this, ActividadesPagoActivity::class.java)
             startActivity(intent)
         }
 
-        // BottomNavigationView
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    // Opcional: para que no se acumulen activities en la pila
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     true
@@ -44,7 +50,7 @@ class ActividadesActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    showUserMenu() // Ahora se usa BottomSheetDialog
+                    showUserMenu()
                     true
                 }
                 else -> false
@@ -57,7 +63,6 @@ class ActividadesActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
         bottomSheet.setContentView(view)
 
-        // Click listeners
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
             Toast.makeText(this, "Abrir Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
@@ -75,7 +80,7 @@ class ActividadesActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_salir).setOnClickListener {
             bottomSheet.dismiss()
-            showSalirDialog() // función existente
+            showSalirDialog()
         }
 
         bottomSheet.show()

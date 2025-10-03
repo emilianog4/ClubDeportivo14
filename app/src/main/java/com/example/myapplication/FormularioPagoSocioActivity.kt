@@ -35,7 +35,7 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
             insets
         }
 
-        // 🔹 Referencias UI
+
         etNroSocio = findViewById(R.id.et_nro_socio)
         spinnerCuotas = findViewById(R.id.spinner_cuotas)
         etImporte = findViewById(R.id.et_importe)
@@ -44,29 +44,29 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
         btnPagar = findViewById(R.id.btn_pagar)
         btnCancelar = findViewById(R.id.btn_cancelar_pago)
 
-        //Spinner de cuotas (1 a 12)
+
         val cuotas = (1..12).map { it.toString() }
         val cuotasAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, cuotas)
         spinnerCuotas.adapter = cuotasAdapter
 
-        //Spinner formas de pago
+
         val formasPago = listOf("Tarjeta de crédito", "Tarjeta de débito", "Efectivo", "Transferencia")
         val formasAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, formasPago)
         spinnerPago.adapter = formasAdapter
 
-        // 🧾 Botón Pagar
+
         btnPagar.setOnClickListener {
             if (validarCampos()) {
                 mostrarDialogoProcesando()
             }
         }
 
-        //Botón Cancelar
+
         btnCancelar.setOnClickListener {
             mostrarDialogoCancelar()
         }
 
-        // 🔸 BottomNavigationView
+
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -87,9 +87,12 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_pago)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
-    //Validar datos obligatorios
     private fun validarCampos(): Boolean {
         if (etNroSocio.text.isNullOrBlank()) {
             Toast.makeText(this, "Ingrese un número de socio válido", Toast.LENGTH_SHORT).show()
@@ -106,7 +109,6 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
         return true
     }
 
-    //Loading de procesamiento
     private fun mostrarDialogoProcesando() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_loading)
@@ -120,7 +122,6 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
         }, 2000)
     }
 
-    //Diálogo de éxito
     private fun mostrarDialogoExito() {
         AlertDialog.Builder(this)
             .setTitle("Pago realizado")
@@ -131,7 +132,6 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
             .show()
     }
 
-    //Diálogo de cancelación
     private fun mostrarDialogoCancelar() {
         AlertDialog.Builder(this)
             .setTitle("Advertencia")

@@ -15,6 +15,7 @@ import com.example.myapplication.helpers.ValidacionSocioHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.content.Intent
+import android.widget.ImageButton
 
 class ActividadesPagoActivity : AppCompatActivity() {
 
@@ -31,7 +32,11 @@ class ActividadesPagoActivity : AppCompatActivity() {
             insets
         }
 
-        // Tarjeta de Fútbol
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_pago_actividad)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         val tarjetaFutbol = findViewById<LinearLayout>(R.id.card_futbol)
         tarjetaFutbol.setOnClickListener {
             ValidacionSocioHelper.mostrarDialogoSeleccionSocio(

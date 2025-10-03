@@ -29,7 +29,12 @@ class AltaNoSocioActivity : AppCompatActivity() {
             insets
         }
 
-        // Referencias UI
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_no_socio)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         val btnGuardar = findViewById<Button>(R.id.btn_guardar)
         val btnCancelar = findViewById<Button>(R.id.btn_cancelar)
         val cbApto = findViewById<CheckBox>(R.id.cb_apto_fisico)
@@ -37,19 +42,16 @@ class AltaNoSocioActivity : AppCompatActivity() {
         val etImporteActividad = findViewById<EditText>(R.id.et_importe_actividad)
         val spFormaPago = findViewById<Spinner>(R.id.sp_forma_pago)
 
-        // Recuperar datos enviados desde la pantalla de actividades
         val actividad = intent.getStringExtra("actividad") ?: ""
         val importe = intent.getStringExtra("importe") ?: ""
 
         etTipoActividad.setText(actividad)
         etImporteActividad.setText(importe)
 
-        //Spinner de formas de pago
         val opcionesPago = listOf("Efectivo", "Tarjeta de crédito", "Tarjeta de débito", "Transferencia")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opcionesPago)
         spFormaPago.adapter = adapter
 
-        //Botón Guardar
         btnGuardar.setOnClickListener {
             if (cbApto.isChecked) {
                 mostrarLoading()
@@ -64,10 +66,9 @@ class AltaNoSocioActivity : AppCompatActivity() {
 
         //Botón Cancelar
         btnCancelar.setOnClickListener {
-            finish() // vuelve a la pantalla anterior
+            finish()
         }
 
-        //Navegación inferior
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -90,7 +91,6 @@ class AltaNoSocioActivity : AppCompatActivity() {
         }
     }
 
-    //Loading
     private fun mostrarLoading() {
         loadingDialog = Dialog(this)
         loadingDialog?.setContentView(R.layout.dialog_loading)
@@ -102,7 +102,6 @@ class AltaNoSocioActivity : AppCompatActivity() {
         loadingDialog?.dismiss()
     }
 
-    // Diálogo de éxito
     private fun mostrarDialogoExito() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Alta No Socio")
@@ -117,8 +116,7 @@ class AltaNoSocioActivity : AppCompatActivity() {
         }
         builder.show()
     }
-
-    // 📋 Menú inferior
+    
     private fun showUserMenu() {
         val bottomSheet = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)

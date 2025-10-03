@@ -29,26 +29,31 @@ class AltaSocioActivity : AppCompatActivity() {
             insets
         }
 
-        // Referencias UI
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_alta)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         etNombre = findViewById(R.id.et_nombre)
         etDni = findViewById(R.id.et_dni)
         chkAptoFisico = findViewById(R.id.cb_apto_fisico)
         btnGuardar = findViewById(R.id.btn_guardar)
         btnCancelar = findViewById(R.id.btn_cancelar)
 
-        // Botón Cancelar → cartel de advertencia
+
         btnCancelar.setOnClickListener {
             mostrarDialogoCancelar()
         }
 
-        // Botón Guardar → validación + cartel de éxito
+
         btnGuardar.setOnClickListener {
             if (validarCampos()) {
                 mostrarDialogoExito()
             }
         }
 
-        // BottomNavigationView (como ya lo tenías)
+
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -71,7 +76,7 @@ class AltaSocioActivity : AppCompatActivity() {
         }
     }
 
-    //Validación de campos
+
     private fun validarCampos(): Boolean {
         val nombre = etNombre.text.toString().trim()
         val dni = etDni.text.toString().trim()
@@ -88,7 +93,7 @@ class AltaSocioActivity : AppCompatActivity() {
         return true
     }
 
-    // Diálogo Cancelar alta
+
     private fun mostrarDialogoCancelar() {
         AlertDialog.Builder(this)
             .setTitle("Advertencia")
@@ -100,7 +105,7 @@ class AltaSocioActivity : AppCompatActivity() {
             .show()
     }
 
-    // Diálogo Éxito
+
     private fun mostrarDialogoExito() {
         AlertDialog.Builder(this)
             .setTitle("Éxito")
@@ -111,7 +116,7 @@ class AltaSocioActivity : AppCompatActivity() {
             .show()
     }
 
-    // Preguntar si desea realizar el pago
+
     private fun preguntarPagoCuota() {
         AlertDialog.Builder(this)
             .setTitle("Pago de cuota")

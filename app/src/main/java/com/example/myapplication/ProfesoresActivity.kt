@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -27,13 +28,18 @@ class ProfesoresActivity : AppCompatActivity() {
             val intent = Intent(this, ProfesoresListasActivity::class.java)
             startActivity(intent)
         }
-        // BottomNavigationView
+
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_profesores)
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    // Opcional: para que no se acumulen activities en la pila
+
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     true
@@ -43,7 +49,7 @@ class ProfesoresActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    showUserMenu() // Ahora se usa BottomSheetDialog
+                    showUserMenu()
                     true
                 }
                 else -> false
