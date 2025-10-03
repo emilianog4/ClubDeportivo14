@@ -1,0 +1,15 @@
+<!-- res/menu/menu_opciones.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_perfil"
+        android:title="Perfil"/>
+    <item
+        android:id="@+id/menu_ajuste"
+        android:title="Ajuste de seguridad"/>
+    <item
+        android:id="@+id/menu_politica"
+        android:title="Política de privacidad"/>
+    <item
+        android:id="@+id/menu_salir"
+        android:title="Salir"/>
+</menu>

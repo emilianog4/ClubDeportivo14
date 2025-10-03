@@ -1,182 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/blue"
     tools:context=".MenuPrincipalActivity">
 
-    <LinearLayout
+    <!-- 🔹 Contenido scrollable -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="16dp">
-
-        <TextView
-            android:id="@+id/text_welcome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Bienvenido/a 'Admin'"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/lato"
-            android:textSize="20sp" />
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:padding="4dp">
-
-            <Button
-                android:id="@+id/btn_socios"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Socios"
-                android:textSize="20sp"
-                 />
-
-            <Button
-                android:id="@+id/btn_actividades"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Actividades"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/btn_pagos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Pagos"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/btn_carnet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Carnet"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/btn_rutinas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Rutinas"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/btn_nutricion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/lato"
-                android:textColor="@color/blue"
-                android:text="Nutrición"
-                android:textSize="20sp"
-                />
-
-
-        </GridLayout>
-        <Button
-            android:id="@+id/btn_profesores"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="12dp"
-            android:backgroundTint="@color/white"
-            android:fontFamily="@font/lato"
-            android:textColor="@color/blue"
-            android:text="Profesores"
-            android:textSize="20sp"
-            />
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="20dp"
-            >
+            android:orientation="vertical">
 
+            <!-- Texto Bienvenida -->
             <TextView
+                android:id="@+id/text_welcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Notificaciones:"
-                android:textColor="@android:color/black"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/lato"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="Bienvenido/a 'Admin'"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
-            <TextView
+            <!-- Botones en grilla -->
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="• Cuota de Juan Perez vence en 3 días"
-                android:textColor="@android:color/black"
-                android:fontFamily="@font/lato"
-                android:textSize="16sp" />
+                android:alignmentMode="alignMargins"
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:padding="4dp">
 
-            <TextView
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_socios"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Socios"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_actividades"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Actividades"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pagos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Pagos"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_carnet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Carnet"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_rutinas"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Rutinas"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_nutricion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@null"
+                    android:foregroundTint="@null"
+                    android:fontFamily="@font/lato"
+                    android:text="Nutrición"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+            </GridLayout>
+
+            <!-- Botón Profesores (full width) -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_profesores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="• Nueva clase: Spinning - Mar 18:00"
-                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@null"
+                android:foregroundTint="@null"
                 android:fontFamily="@font/lato"
-                android:textSize="16sp" />
+                android:text="Profesores"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
 
-            <TextView
+            <!-- Caja Notificaciones -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="• Turno nutrición de Ana - Hoy 15:00"
-                android:textColor="@android:color/black"
-                android:fontFamily="@font/lato"
-                android:textSize="16sp" />
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_card"
+                android:orientation="vertical"
+                android:padding="16dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="Notificaciones:"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="• Cuota de Juan Perez vence en 3 días"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="• Nueva clase: Spinning - Mar 18:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="• Turno nutrición de Ana - Hoy 15:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="64dp" />
+    <!-- 🔸 Bottom Navigation fijo abajo -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconTint="@color/blue"
+        app:itemTextColor="@color/blue"
+        app:menu="@menu/bottom_nav_menu" />
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

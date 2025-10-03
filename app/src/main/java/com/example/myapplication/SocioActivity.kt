@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,34 +11,26 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class MenuPrincipalActivity : AppCompatActivity() {
+class SocioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_menu_principal)
-
-        // Edge-to-Edge
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.menu)) { v, insets ->
+        setContentView(R.layout.activity_socio)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.socio)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Referencia al botón
-        val btn_socios = findViewById<Button>(R.id.btn_socios)
-
-        btn_socios.setOnClickListener {
-            val intent = Intent(this, SocioActivity::class.java)
-            startActivity(intent)
-            // finish()  <-- comentar mientras testeás
-        }
-
 
         // BottomNavigationView
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MenuPrincipalActivity::class.java)
+                    // Opcional: para que no se acumulen activities en la pila
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_qr -> {
@@ -99,3 +90,5 @@ class MenuPrincipalActivity : AppCompatActivity() {
         builder.show()
     }
 }
+
+

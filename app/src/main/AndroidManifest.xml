@@ -16,9 +16,12 @@
             android:exported="false" />
         <activity
             android:name=".MenuPrincipalActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".SocioActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
