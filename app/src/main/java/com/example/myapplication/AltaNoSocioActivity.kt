@@ -116,16 +116,18 @@ class AltaNoSocioActivity : AppCompatActivity() {
         }
         builder.show()
     }
-    
+
     private fun showUserMenu() {
         val bottomSheet = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
         bottomSheet.setContentView(view)
 
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
-            Toast.makeText(this, "Abrir Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            val intent = Intent(this, PerfilUsuarioActivity::class.java)
+            startActivity(intent)
         }
+
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
             Toast.makeText(this, "Abrir Ajuste de seguridad", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()

@@ -34,7 +34,7 @@ class FichaMedicaNutricionActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> {
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    // Opcional: para que no se acumulen activities en la pila
+
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     true
@@ -44,7 +44,7 @@ class FichaMedicaNutricionActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    showUserMenu() // Ahora se usa BottomSheetDialog
+                    showUserMenu()
                     true
                 }
                 else -> false
@@ -57,10 +57,10 @@ class FichaMedicaNutricionActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
         bottomSheet.setContentView(view)
 
-        // Click listeners
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
-            Toast.makeText(this, "Abrir Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            val intent = Intent(this, PerfilUsuarioActivity::class.java)
+            startActivity(intent)
         }
 
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
@@ -75,7 +75,7 @@ class FichaMedicaNutricionActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_salir).setOnClickListener {
             bottomSheet.dismiss()
-            showSalirDialog() // función existente
+            showSalirDialog()
         }
 
         bottomSheet.show()

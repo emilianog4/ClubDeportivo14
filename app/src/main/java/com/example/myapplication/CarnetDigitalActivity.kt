@@ -56,10 +56,10 @@ class CarnetDigitalActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
         bottomSheet.setContentView(view)
 
-        // Click listeners
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
-            Toast.makeText(this, "Abrir Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            val intent = Intent(this, PerfilUsuarioActivity::class.java)
+            startActivity(intent)
         }
 
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
@@ -74,7 +74,7 @@ class CarnetDigitalActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_salir).setOnClickListener {
             bottomSheet.dismiss()
-            showSalirDialog() // función existente
+            showSalirDialog()
         }
 
         bottomSheet.show()

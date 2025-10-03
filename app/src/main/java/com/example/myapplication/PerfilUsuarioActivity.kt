@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -13,24 +12,19 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class SocioActivity : AppCompatActivity() {
+class PerfilUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_socio)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.socio)) { v, insets ->
+        setContentView(R.layout.activity_perfil_usuario)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.perfil_usuario)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btn_alta = findViewById<Button>(R.id.btn_alta)
-        btn_alta.setOnClickListener {
-            val intent = Intent(this, AltaSocioActivity::class.java)
-            startActivity(intent)
-        }
-
-        val btnBack = findViewById<ImageButton>(R.id.btn_back)
+        val btnBack = findViewById<ImageButton>(R.id.btn_back_perfil)
         btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -40,7 +34,6 @@ class SocioActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> {
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    // Opcional: para que no se acumulen activities en la pila
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     true
@@ -50,7 +43,7 @@ class SocioActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    showUserMenu() // Ahora se usa BottomSheetDialog
+                    showUserMenu()
                     true
                 }
                 else -> false
@@ -64,9 +57,8 @@ class SocioActivity : AppCompatActivity() {
         bottomSheet.setContentView(view)
 
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
+            Toast.makeText(this, "Ya estás en Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
-            val intent = Intent(this, PerfilUsuarioActivity::class.java)
-            startActivity(intent)
         }
 
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
@@ -81,7 +73,7 @@ class SocioActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_salir).setOnClickListener {
             bottomSheet.dismiss()
-            showSalirDialog() // función existente
+            showSalirDialog()
         }
 
         bottomSheet.show()
@@ -102,5 +94,3 @@ class SocioActivity : AppCompatActivity() {
         builder.show()
     }
 }
-
-

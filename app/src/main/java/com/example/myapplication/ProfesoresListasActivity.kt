@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-
+import android.content.Intent
 data class Profesor(
     val nombre: String,
     val id: String,
@@ -102,9 +102,11 @@ class ProfesoresListasActivity : AppCompatActivity() {
         bottomSheet.setContentView(view)
 
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
-            Toast.makeText(this, "Abrir Perfil", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            val intent = Intent(this, PerfilUsuarioActivity::class.java)
+            startActivity(intent)
         }
+
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
             Toast.makeText(this, "Abrir Ajuste de seguridad", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
