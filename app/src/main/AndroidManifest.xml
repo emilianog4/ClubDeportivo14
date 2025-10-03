@@ -11,42 +11,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+
         <activity
             android:name=".OlvidasteContrasenaActivity"
             android:exported="false" />
+
         <activity
             android:name=".MenuPrincipalActivity"
             android:exported="true" />
+
         <activity
             android:name=".LoginActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".SocioActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".ActividadesActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".PagosActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".CarnetDigitalActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".RutinasActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".FichaMedicaNutricionActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".ProfesoresActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SocioActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".AltaSocioActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ActividadesActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".PagosActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ActividadesPagoActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".FormularioPagoSocioActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".CarnetDigitalActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".RutinasActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".FichaMedicaNutricionActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ProfesoresActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProfesoresListasActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AltaNoSocioActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

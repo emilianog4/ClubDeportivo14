@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -21,7 +22,11 @@ class ProfesoresActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        val btn_listado_profesores = findViewById<Button>(R.id.btn_listado_profesores)
+        btn_listado_profesores.setOnClickListener {
+            val intent = Intent(this, ProfesoresListasActivity::class.java)
+            startActivity(intent)
+        }
         // BottomNavigationView
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/et_nro_socio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nro. de socio"
+        android:inputType="number"
+        android:background="@drawable/rounded_edittext_white"
+        android:padding="10dp" />
+</LinearLayout>

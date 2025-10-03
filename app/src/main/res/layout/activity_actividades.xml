@@ -5,45 +5,111 @@
     android:id="@+id/actividades"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/blue"
+    android:orientation="vertical"
     tools:context=".ActividadesActivity">
 
-    <!-- 🔹 Toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/blue"
-        android:title="Actividades"
-        android:titleTextColor="@android:color/white"
-        app:navigationIcon="@drawable/ic_arrow_back_white"
-        app:navigationIconTint="@android:color/white" />
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-    <!-- 🔸 Contenido -->
+        <ImageButton
+            android:id="@+id/btn_back_actividades"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver"
+            android:src="@drawable/ic_arrow_back_white" />
+
+        <ImageView
+            android:id="@+id/img_logo_actividades"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/tv_title_actividades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Actividades"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/et_buscar_actividades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext_white"
+            android:drawableEnd="@drawable/ic_search"
+            android:hint="Buscar socio..."
+            android:padding="8dp"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_inscripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pantalla de Actividades"
-                android:textSize="20sp"
-                android:textColor="@android:color/white"
-                android:textAlignment="center" />
+                android:background="@drawable/rounded_button_white"
+                android:text="Inscripción"
+                android:textColor="@color/blue" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_administrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_button_white"
+                android:text="Administrar"
+                android:textColor="@color/blue" />
+
+            <!-- Tarjeta asistencias -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="308dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_card_white"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tv_asistencias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="• Fútbol  |  9–12 hs  |  17–19 hs&#10;• Funcional | 8–12 hs | 9–10 hs"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- 🔹 Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -52,5 +118,4 @@
         app:itemIconTint="@color/blue"
         app:itemTextColor="@color/blue"
         app:menu="@menu/bottom_nav_menu" />
-
 </LinearLayout>

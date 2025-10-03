@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,12 @@ class SocioActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        val btn_alta = findViewById<Button>(R.id.btn_alta)
+        btn_alta.setOnClickListener {
+            val intent = Intent(this, AltaSocioActivity::class.java)
+            startActivity(intent)
         }
 
         // BottomNavigationView

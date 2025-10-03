@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alta_no_socio"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:orientation="vertical"
+    tools:context=".AltaNoSocioActivity">
+
+    <!-- 🔹 Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <ImageButton
+            android:id="@+id/btn_back_no_socio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back_white"
+            android:contentDescription="Volver" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Alta No Socio"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 📋 Contenido scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Imagen perfil -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person" />
+
+            <!-- Datos personales -->
+            <EditText
+                android:id="@+id/et_nombre_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="12dp" />
+
+            <EditText
+                android:id="@+id/et_apellido_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_dni_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="DNI"
+                android:inputType="number"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_fecha_nac_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha Nacimiento"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_celular_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Celular"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_email_no_socio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <CheckBox
+                android:id="@+id/cb_apto_fisico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apto Físico"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="8dp" />
+
+            <!-- 🏀 Sección Actividad -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVIDAD"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/et_tipo_actividad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipo Actividad"
+                android:enabled="false"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_importe_actividad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Importe"
+                android:enabled="false"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp"
+                android:layout_marginTop="8dp" />
+
+            <Spinner
+                android:id="@+id/sp_forma_pago"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_edittext_white"
+                android:padding="10dp" />
+
+            <!-- Botones Guardar / Cancelar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="12dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_guardar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button_white"
+                    android:text="Guardar"
+                    android:textColor="@color/blue"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_cancelar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/rounded_button_white"
+                    android:text="Cancelar"
+                    android:textColor="@color/blue"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 🔸 Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconTint="@color/blue"
+        app:itemTextColor="@color/blue"
+        app:menu="@menu/bottom_nav_menu" />
+</LinearLayout>

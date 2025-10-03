@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pagos"
+    android:id="@+id/listado_profesores"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
     android:orientation="vertical"
-    tools:context=".PagosActivity">
+    tools:context=".ProfesoresActivity">
 
+    <!-- Top bar -->
     <LinearLayout
-        android:id="@+id/top_bar_pagos"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
@@ -19,7 +19,7 @@
         android:paddingEnd="8dp">
 
         <ImageButton
-            android:id="@+id/btn_back_pagos"
+            android:id="@+id/btn_back_profesores"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -27,7 +27,7 @@
             android:contentDescription="Volver" />
 
         <ImageView
-            android:id="@+id/img_logo_pagos"
+            android:id="@+id/img_logo_profesores"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
@@ -35,85 +35,72 @@
             android:contentDescription="Logo" />
 
         <TextView
-            android:id="@+id/tv_title_pagos"
+            android:id="@+id/tv_title_profesores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Pagos"
+            android:text="PROFESORES"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!--Subtítulo -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Listado de profesores"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp" />
 
-    <LinearLayout
+    <!-- Lista de profesores -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="12dp">
 
         <LinearLayout
+            android:id="@+id/contenedor_profesores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="vertical" />
+    </ScrollView>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_cuota"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/rounded_button_white"
-                android:text="Cuota mensual"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_pago_actividad"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/rounded_button_white"
-                android:text="Pago por actividad"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
-        </LinearLayout>
+    <!-- Botones inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_historial"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_editar_profesor"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_button_white"
-            android:text="Historial"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_historial"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_card_white"
-            android:padding="12dp"
-            android:text="HISTORIAL"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:text="Editar"
+            android:textColor="@color/blue" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_limpiar_pagos"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_baja_profesor"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:background="@drawable/rounded_button_white"
-            android:text="Limpiar"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
+            android:text="Baja"
+            android:textColor="@color/blue" />
     </LinearLayout>
 
+    <!--  Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -122,5 +109,4 @@
         app:itemIconTint="@color/blue"
         app:itemTextColor="@color/blue"
         app:menu="@menu/bottom_nav_menu" />
-
 </LinearLayout>

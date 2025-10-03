@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -22,6 +23,17 @@ class PagosActivity : AppCompatActivity() {
             insets
         }
 
+        val btn_cuotaMensual = findViewById<Button>(R.id.btn_cuota)
+        btn_cuotaMensual.setOnClickListener {
+            val intent = Intent(this, FormularioPagoSocioActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnPagoActividad = findViewById<Button>(R.id.btn_pago_actividad)
+        btnPagoActividad.setOnClickListener {
+            val intent = Intent(this, ActividadesPagoActivity::class.java)
+            startActivity(intent)
+        }
         // BottomNavigationView
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->

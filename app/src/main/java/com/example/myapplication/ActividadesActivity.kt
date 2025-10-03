@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,11 @@ class ActividadesActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val btn_inscripcion = findViewById<Button>(R.id.btn_inscripcion)
+        btn_inscripcion.setOnClickListener {
+            val intent = Intent(this, ActividadesPagoActivity::class.java)
+            startActivity(intent)
         }
 
         // BottomNavigationView
