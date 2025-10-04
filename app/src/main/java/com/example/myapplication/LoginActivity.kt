@@ -26,8 +26,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        val idOlvideContrasenia = findViewById<Button>(R.id.olvideContrasenia)
-        idOlvideContrasenia.setOnClickListener {
+        val btnOlvideContrasenia = findViewById<Button>(R.id.olvideContrasenia)
+        btnOlvideContrasenia.setOnClickListener {
             val intent = Intent(this, OlvidasteContrasenaActivity::class.java)
             startActivity(intent)
             finish()
