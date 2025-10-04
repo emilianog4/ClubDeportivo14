@@ -13,14 +13,6 @@
         android:theme="@style/Theme.MyApplication">
 
         <activity
-            android:name=".OlvidasteContrasenaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".MenuPrincipalActivity"
-            android:exported="true" />
-
-        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -29,6 +21,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".OlvidasteContrasenaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MenuPrincipalActivity"
+            android:exported="true" />
         <activity
             android:name=".SocioActivity"
             android:exported="true" />

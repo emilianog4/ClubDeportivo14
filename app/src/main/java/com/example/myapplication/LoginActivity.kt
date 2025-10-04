@@ -20,14 +20,19 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        // Referencia al botón
         val btnIngresar = findViewById<Button>(R.id.btnIngresar)
-
-        // Listener del botón
         btnIngresar.setOnClickListener {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)
-            finish() // opcional: evita que se vuelva al login con el botón "atrás"
+            finish()
         }
+        val idOlvideContrasenia = findViewById<Button>(R.id.olvideContrasenia)
+        idOlvideContrasenia.setOnClickListener {
+            val intent = Intent(this, OlvidasteContrasenaActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
     }
 }
