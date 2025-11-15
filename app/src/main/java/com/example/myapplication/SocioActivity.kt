@@ -12,6 +12,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.adapter.SocioAdapter
+import com.example.myapplication.database.AdminSQLiteOpenHelper
 
 class SocioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,29 @@ class SocioActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // 1. Buscamos el RecyclerView en nuestro layout
+                val rvSocios = findViewById<RecyclerView>(R.id.rv_socios)
+
+        // 2. Creamos una instancia de nuestro AdminSQLiteOpenHelper
+                val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+
+        // 3. Obtenemos la lista de todos los socios desde la base de datos
+                val listaDeSocios = admin.obtenerTodosLosSocios()
+
+        // 4. Creamos una instancia de nuestro adaptador, pasándole la lista de socios
+                val adapter = SocioAdapter(listaDeSocios)
+
+        // 5. Configuramos el RecyclerView
+                rvSocios.layoutManager = LinearLayoutManager(this) // Le decimos que muestre los items en una lista vertical
+                rvSocios.adapter = adapter // Le asignamos nuestro adaptador
+
+        cargarSocios()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        cargarSocios() // Y llama aquí también para que se refresque al volver
     }
 
     private fun showUserMenu() {
@@ -85,6 +112,14 @@ class SocioActivity : AppCompatActivity() {
         }
 
         bottomSheet.show()
+    }
+
+    private fun cargarSocios() {    val rvSocios = findViewById<RecyclerView>(R.id.rv_socios)
+        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+        val listaDeSocios = admin.obtenerTodosLosSocios()
+        val adapter = SocioAdapter(listaDeSocios)
+        rvSocios.layoutManager = LinearLayoutManager(this)
+        rvSocios.adapter = adapter
     }
 
     private fun showSalirDialog() {

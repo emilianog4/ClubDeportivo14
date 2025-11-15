@@ -134,15 +134,6 @@
                 android:padding="10dp"
                 android:layout_marginTop="8dp"/>
 
-            <EditText
-                android:id="@+id/et_fecha_insc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Fecha Inscripción"
-                android:background="@drawable/rounded_edittext_white"
-                android:padding="10dp"
-                android:layout_marginTop="8dp"/>
-
             <CheckBox
                 android:id="@+id/cb_apto_fisico"
                 android:layout_width="wrap_content"

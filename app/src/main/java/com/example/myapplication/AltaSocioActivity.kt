@@ -8,13 +8,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myapplication.database.AdminSQLiteOpenHelper
+import com.example.myapplication.model.Socio
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AltaSocioActivity : AppCompatActivity() {
 
     private lateinit var etNombre: EditText
+    private lateinit var etApellido: EditText
     private lateinit var etDni: EditText
+    private lateinit var etFechaNac: EditText
+    private lateinit var etCelular: EditText
+    private lateinit var etDomicilio: EditText
+    private lateinit var etEmail: EditText
     private lateinit var chkAptoFisico: CheckBox
     private lateinit var btnGuardar: Button
     private lateinit var btnCancelar: Button
@@ -35,11 +42,19 @@ class AltaSocioActivity : AppCompatActivity() {
         }
 
 
+        // Dentro de onCreate()
+
         etNombre = findViewById(R.id.et_nombre)
+        etApellido = findViewById(R.id.et_apellido) // <-- Añadir
         etDni = findViewById(R.id.et_dni)
+        etFechaNac = findViewById(R.id.et_fecha_nac) // <-- Añadir
+        etCelular = findViewById(R.id.et_celular) // <-- Añadir
+        etDomicilio = findViewById(R.id.et_domicilio) // <-- Añadir
+        etEmail = findViewById(R.id.et_email) // <-- Añadir
         chkAptoFisico = findViewById(R.id.cb_apto_fisico)
         btnGuardar = findViewById(R.id.btn_guardar)
         btnCancelar = findViewById(R.id.btn_cancelar)
+
 
 
         btnCancelar.setOnClickListener {
@@ -48,8 +63,56 @@ class AltaSocioActivity : AppCompatActivity() {
 
 
         btnGuardar.setOnClickListener {
-            if (validarCampos()) {
-                mostrarDialogoExito()
+            // 1. Instanciamos nuestro AdminSQLiteOpenHelper
+            // El 'this' es el contexto de la Activity.
+            // "clubDeportivo14.db" será el nombre del archivo de la base de datos.
+            val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+
+            // 2. Recolectamos los datos de la interfaz
+            val nombre = etNombre.text.toString()
+            val apellido = etApellido.text.toString()
+            val dni = etDni.text.toString()
+            val fechaNac = etFechaNac.text.toString()
+            val celular = etCelular.text.toString()
+            val domicilio = etDomicilio.text.toString()
+            val email = etEmail.text.toString()
+            val aptoFisico = chkAptoFisico.isChecked
+
+            // 3. Validamos que los campos no estén vacíos
+            if (nombre.isNotEmpty() && apellido.isNotEmpty() && dni.isNotEmpty() && fechaNac.isNotEmpty() &&
+                celular.isNotEmpty() && domicilio.isNotEmpty() && email.isNotEmpty()) {
+
+                // 4. Creamos el objeto Socio con los datos recolectados.
+                // El 'id' se pone como null porque la base de datos lo generará automáticamente.
+                // La 'fechaInscripcion' se pone vacía porque la base de datos la pondrá por defecto.
+                val nuevoSocio = Socio(
+                    id = null,
+                    nombre = nombre,
+                    apellido = apellido,
+                    dni = dni,
+                    fechaNacimiento = fechaNac,
+                    celular = celular,
+                    domicilio = domicilio,
+                    email = email,
+                    aptoFisico = aptoFisico,
+                    fechaInscripcion = "" // Se deja vacío, la BD usa CURRENT_TIMESTAMP
+                )
+
+                // 5. Llamamos a la función para agregar el socio a la base de datos.
+                val idSocio = admin.agregarSocio(nuevoSocio)
+
+                // 6. Verificamos si se guardó correctamente y mostramos el diálogo
+                if (idSocio > -1) {
+                    // Éxito: el socio fue insertado. El 'idSocio' es el ID que le dio la BD.
+                    mostrarDialogoExito("Socio registrado correctamente.\nID Socio: $idSocio")
+                } else {
+                    // Error: algo falló al insertar en la base de datos.
+                    Toast.makeText(this, "Error al registrar el socio. DNI duplicado?", Toast.LENGTH_LONG).show()
+                }
+
+            } else {
+                // Si algún campo está vacío, mostramos un mensaje de error.
+                Toast.makeText(this, "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -76,24 +139,6 @@ class AltaSocioActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun validarCampos(): Boolean {
-        val nombre = etNombre.text.toString().trim()
-        val dni = etDni.text.toString().trim()
-        val apto = chkAptoFisico.isChecked
-
-        if (nombre.isEmpty() || dni.isEmpty()) {
-            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if (!apto) {
-            Toast.makeText(this, "Debe marcar Apto físico", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
-    }
-
-
     private fun mostrarDialogoCancelar() {
         AlertDialog.Builder(this)
             .setTitle("Advertencia")
@@ -106,13 +151,14 @@ class AltaSocioActivity : AppCompatActivity() {
     }
 
 
-    private fun mostrarDialogoExito() {
+    private fun mostrarDialogoExito(mensaje: String) {
         AlertDialog.Builder(this)
             .setTitle("Éxito")
-            .setMessage("✅ Socio registrado correctamente.\nID Socio: 12341")
+            .setMessage(mensaje) // <-- ¡CORREGIDO! Ahora usa el mensaje dinámico
             .setPositiveButton("Aceptar") { _, _ ->
                 preguntarPagoCuota()
             }
+            .setCancelable(false) // Buena práctica: evita que se cierre por accidente
             .show()
     }
 
