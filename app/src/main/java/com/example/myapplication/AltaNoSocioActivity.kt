@@ -54,11 +54,31 @@ class AltaNoSocioActivity : AppCompatActivity() {
         spFormaPago.adapter = adapter
 
         btnGuardar.setOnClickListener {
+
+            val etDni = findViewById<EditText>(R.id.et_dni_no_socio)
+            val dniIngresado = etDni.text.toString().trim()
+
+            val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
+
+            // 🔥 VALIDAR DNI VACÍO
+            if (dniIngresado.isEmpty()) {
+                Toast.makeText(this, "Debe ingresar un DNI", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 🔥 VALIDAR QUE NO SEA SOCIO
+            val socioExiste = admin.buscarSocioPorDni(dniIngresado)
+
+            if (socioExiste != null) {
+                Toast.makeText(this, "Ese DNI ya pertenece a un socio registrado", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            // --- VALIDACIONES EXISTENTES -----
             val actividadTexto = etTipoActividad.text.toString().trim()
             val importeTexto = etImporteActividad.text.toString().trim()
             val formaPagoSeleccionada = spFormaPago.selectedItem?.toString() ?: ""
 
-            // Validaciones básicas (las que la consigna suele pedir)
             if (actividadTexto.isEmpty()) {
                 Toast.makeText(this, "Debe indicar el tipo de actividad", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -85,10 +105,8 @@ class AltaNoSocioActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Si llegó hasta acá, está todo OK → guardamos en la BD
+            // --- GUARDAR EN BD ---
             mostrarLoading()
-
-            val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
 
             val noSocio = NoSocio(
                 tipoActividad = actividadTexto,
@@ -99,7 +117,6 @@ class AltaNoSocioActivity : AppCompatActivity() {
 
             val idInsertado = admin.agregarNoSocio(noSocio)
 
-            // REGISTRAR PAGO DE ACTIVIDAD PARA EL NO SOCIO (LÍNEA 128)
             admin.registrarPagoNoSocioActividad(
                 idNoSocio = idInsertado.toInt(),
                 idActividad = intent.getIntExtra("idActividad", -1),

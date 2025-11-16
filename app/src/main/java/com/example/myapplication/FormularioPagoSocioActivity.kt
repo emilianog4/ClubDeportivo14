@@ -114,6 +114,12 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
             true
         }
 
+        etBuscar.setOnEditorActionListener { _, _, _ ->
+            buscarSocioDesdeUI(admin)
+            true
+        }
+
+
 
         // Botón pagar
         btnPagar.setOnClickListener {
@@ -143,14 +149,23 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
 
     private fun buscarSocioDesdeUI(admin: AdminSQLiteOpenHelper) {
 
-        val id = etNroSocio.text.toString().trim().toIntOrNull()
+        // 1) Tomamos valor del campo superior
+        val textoBusqueda = etBuscar.text.toString().trim()
+
+        // 2) Tomamos valor del Nro Socio real
+        val nroSocioTexto = etNroSocio.text.toString().trim()
+
+        // 3) Elegimos cuál usar
+        val id = when {
+            nroSocioTexto.isNotEmpty() -> nroSocioTexto.toIntOrNull()
+            textoBusqueda.isNotEmpty() -> textoBusqueda.toIntOrNull()
+            else -> null
+        }
 
         if (id == null) {
             Toast.makeText(this, "Ingrese un número válido", Toast.LENGTH_SHORT).show()
             return
         }
-
-        etNroSocio.setText(id.toString())  // 🔥 fuerza el valor limpio
 
         val socio = admin.buscarSocioPorId(id)
 
@@ -161,15 +176,16 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
         }
 
         socioActual = socio
-        etBuscar.setText("${socio.nombre} ${socio.apellido}")
 
+        // Mostramos datos
+        etBuscar.setText("${socio.nombre} ${socio.apellido}")
+        etNroSocio.setText(socio.id.toString())
+
+        // Recalcular
         val cuotasActuales = spinnerCuotas.selectedItem.toString().toInt()
         actualizarImporte(cuotasActuales)
-
         calcularPeriodo(socio.fechaInscripcion, cuotasActuales, false)
     }
-
-
 
     private fun cargarSocio(admin: AdminSQLiteOpenHelper, id: Int) {
         val socio = admin.buscarSocioPorId(id)
@@ -197,9 +213,9 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
     }
 
     private fun calcularPeriodo(fechaAlta: String?, cuotas: Int, desdeAltaSocio: Boolean) {
+
         val cal = Calendar.getInstance()
 
-        // Caso 1 → viene desde ALTA SOCIO → usar fechaInscripcion
         if (desdeAltaSocio && !fechaAlta.isNullOrBlank()) {
             try {
                 val formatoBd =
@@ -210,10 +226,14 @@ class FormularioPagoSocioActivity : AppCompatActivity() {
 
                 val fecha = formatoBd.parse(fechaAlta)
                 if (fecha != null) cal.time = fecha
+
             } catch (_: Exception) {}
         }
 
-        // Caso 2 → módulo PAGOS → usar fecha actual directamente
+        // SI vengo del módulo PAGO → SIEMPRE fecha actual
+        if (!desdeAltaSocio) {
+            cal.time = Date()
+        }
 
         val inicio = formatoUser.format(cal.time)
 
