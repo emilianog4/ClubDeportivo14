@@ -76,13 +76,57 @@ class AdminSQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatab
     }
 
     /**
+     * Busca un socio en la base de datos por nombre y/o apellido.
+     * La búsqueda no distingue mayúsculas/minúsculas y busca coincidencias parciales.
+     * @param query El texto de búsqueda (puede ser nombre, apellido o ambos).
+     * @return Un objeto Socio si se encuentra, o null si no hay coincidencias.
+     */
+    fun buscarSocioPorNombre(query: String): Socio? {
+        val db = this.readableDatabase
+        // Usamos 'TRIM' para quitar espacios y '||' para concatenar nombre y apellido,
+        // permitiendo buscar "Nombre Apellido"
+        val selection = "TRIM(nombre) || ' ' || TRIM(apellido) LIKE ?"
+        val selectionArgs = arrayOf("%$query%") // Los '%' son comodines para buscar coincidencias parciales
+        val cursor = db.query(
+            "socios", // Nombre de la tabla
+            null,     // null para obtener todas las columnas
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        var socio: Socio? = null
+        // Usamos 'use' para asegurarnos de que el cursor se cierre automáticamente
+        cursor.use {
+            if (it.moveToFirst()) { // Si el cursor encuentra al menos un resultado
+                socio = Socio(
+                    id = it.getInt(it.getColumnIndexOrThrow("id")),
+                    nombre = it.getString(it.getColumnIndexOrThrow("nombre")),
+                    apellido = it.getString(it.getColumnIndexOrThrow("apellido")),
+                    dni = it.getString(it.getColumnIndexOrThrow("dni")),
+                    fechaNacimiento = it.getString(it.getColumnIndexOrThrow("fecha_nacimiento")),
+                    celular = it.getString(it.getColumnIndexOrThrow("celular")),
+                    domicilio = it.getString(it.getColumnIndexOrThrow("domicilio")),
+                    email = it.getString(it.getColumnIndexOrThrow("email")),
+                    aptoFisico = it.getInt(it.getColumnIndexOrThrow("apto_fisico")) == 1,
+                    fechaInscripcion = it.getString(it.getColumnIndexOrThrow("fecha_inscripcion"))
+                )
+            }
+        }
+        db.close()
+        return socio
+    }
+
+    /**
      * Obtiene todos los socios de la base de datos.
      * @return Una lista de objetos Socio.
      */
     fun obtenerTodosLosSocios(): ArrayList<Socio> {
         val listaSocios = ArrayList<Socio>()
         // Sentencia SQL para seleccionar todos los registros de la tabla socios
-        val selectQuery = "SELECT * FROM socios"
+        val selectQuery = "SELECT * FROM socios ORDER BY id DESC"
         // Obtenemos una referencia a la base de datos en modo lectura
         val db = this.readableDatabase
         var cursor: Cursor? = null

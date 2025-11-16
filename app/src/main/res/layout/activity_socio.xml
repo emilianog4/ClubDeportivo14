@@ -57,10 +57,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_button_white"
-                android:fontFamily="@font/lato"
+                app:fontFamily="@font/lato"
                 android:text="Alta"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
+
+            <!-- 🔹 Título para la lista de socios -->
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:fontFamily="@font/lato"
+            android:text="Últimos socios agregados"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
             <!-- 🔹 Lista de socios (RecyclerView) -->
             <androidx.recyclerview.widget.RecyclerView
@@ -85,7 +96,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button_white"
-                    android:fontFamily="@font/lato"
+                    app:fontFamily="@font/lato"
                     android:text="Limpiar"
                     android:textColor="@color/blue" />
 
@@ -96,7 +107,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button_white"
-                    android:fontFamily="@font/lato"
+                    app:fontFamily="@font/lato"
                     android:text="Ver Detalle"
                     android:textColor="@color/blue" />
             </LinearLayout>
@@ -109,7 +120,9 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_card_white"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -157,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_button_white"
-                android:fontFamily="@font/lato"
+                app:fontFamily="@font/lato"
                 android:text="Enviar recordatorio de pago"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
