@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/bg_item_actividad">
+
+    <TextView
+        android:id="@+id/tv_nombre_actividad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actividad"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_precio_actividad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="$ 0.00"
+        android:textSize="16sp"
+        android:textColor="#444"
+        android:paddingTop="4dp" />
+
+</LinearLayout>

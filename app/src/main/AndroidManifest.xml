@@ -74,7 +74,13 @@
             android:name=".AltaNoSocioActivity"
             android:exported="true" />
         <activity
+            android:name=".HistorialPagosActivity"
+            android:exported="true" />
+        <activity
             android:name=".PerfilUsuarioActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PagosVencerGlobalActivity"
             android:exported="true" />
         <meta-data
             android:name="preloaded_fonts"

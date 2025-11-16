@@ -13,6 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.myapplication.database.AdminSQLiteOpenHelper
+import com.example.myapplication.model.NoSocio
 
 class AltaNoSocioActivity : AppCompatActivity() {
 
@@ -34,7 +36,6 @@ class AltaNoSocioActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-
         val btnGuardar = findViewById<Button>(R.id.btn_guardar)
         val btnCancelar = findViewById<Button>(R.id.btn_cancelar)
         val cbApto = findViewById<CheckBox>(R.id.cb_apto_fisico)
@@ -45,23 +46,76 @@ class AltaNoSocioActivity : AppCompatActivity() {
         val actividad = intent.getStringExtra("actividad") ?: ""
         val importe = intent.getStringExtra("importe") ?: ""
 
-        etTipoActividad.setText(actividad)
-        etImporteActividad.setText(importe)
+        findViewById<EditText>(R.id.et_tipo_actividad).setText(actividad)
+        findViewById<EditText>(R.id.et_importe_actividad).setText(importe)
 
         val opcionesPago = listOf("Efectivo", "Tarjeta de crédito", "Tarjeta de débito", "Transferencia")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opcionesPago)
         spFormaPago.adapter = adapter
 
         btnGuardar.setOnClickListener {
-            if (cbApto.isChecked) {
-                mostrarLoading()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    ocultarLoading()
-                    mostrarDialogoExito()
-                }, 2000) // simula 2 segundos de procesamiento
-            } else {
-                Toast.makeText(this, "Debe marcar Apto Físico", Toast.LENGTH_SHORT).show()
+            val actividadTexto = etTipoActividad.text.toString().trim()
+            val importeTexto = etImporteActividad.text.toString().trim()
+            val formaPagoSeleccionada = spFormaPago.selectedItem?.toString() ?: ""
+
+            // Validaciones básicas (las que la consigna suele pedir)
+            if (actividadTexto.isEmpty()) {
+                Toast.makeText(this, "Debe indicar el tipo de actividad", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (importeTexto.isEmpty()) {
+                Toast.makeText(this, "Debe indicar el importe", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val importeDouble = importeTexto.toDoubleOrNull()
+            if (importeDouble == null || importeDouble <= 0.0) {
+                Toast.makeText(this, "El importe debe ser un número válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!cbApto.isChecked) {
+                Toast.makeText(this, "Debe marcar Apto Físico", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (formaPagoSeleccionada.isEmpty()) {
+                Toast.makeText(this, "Debe seleccionar una forma de pago", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Si llegó hasta acá, está todo OK → guardamos en la BD
+            mostrarLoading()
+
+            val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
+
+            val noSocio = NoSocio(
+                tipoActividad = actividadTexto,
+                importe = importeDouble,
+                formaPago = formaPagoSeleccionada,
+                aptoFisico = cbApto.isChecked
+            )
+
+            val idInsertado = admin.agregarNoSocio(noSocio)
+
+            // REGISTRAR PAGO DE ACTIVIDAD PARA EL NO SOCIO (LÍNEA 128)
+            admin.registrarPagoNoSocioActividad(
+                idNoSocio = idInsertado.toInt(),
+                idActividad = intent.getIntExtra("idActividad", -1),
+                importe = intent.getStringExtra("importe")!!.toDouble(),
+                formaPago = formaPagoSeleccionada
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                ocultarLoading()
+
+                if (idInsertado > 0) {
+                    mostrarDialogoExito()
+                } else {
+                    Toast.makeText(this, "Error al registrar el No Socio", Toast.LENGTH_LONG).show()
+                }
+            }, 1000)
         }
 
         //Botón Cancelar

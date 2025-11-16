@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".ActividadesPagoActivity">
 
+    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -44,6 +45,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- BUSCADOR -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,6 +63,7 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
+    <!-- SCROLL PRINCIPAL -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -72,119 +75,14 @@
             android:orientation="vertical"
             android:padding="12dp">
 
+            <!-- ⛔ ACA VAN LAS TARJETAS DINÁMICAS ⛔ -->
             <LinearLayout
+                android:id="@+id/contenedor_cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="vertical" />
 
-                <!-- Tarjeta Fútbol -->
-                <LinearLayout
-                    android:id="@+id/card_futbol"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/rounded_card_white"
-                    android:padding="10dp">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fútbol"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Profesor/a: Juan Perez"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Horario: 17:00 - 19:00"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cupos: 12/20"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/rounded_button_white"
-                        android:text="Inscribir"
-                        android:textColor="@color/blue"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Tarjeta Natación -->
-                <LinearLayout
-                    android:id="@+id/card_natacion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/rounded_card_white"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Natación"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Profesor/a: Ana Torres"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Horario: 18:00 - 20:00"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cupos: 10/15"
-                        android:textColor="@android:color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/rounded_button_white"
-                        android:text="Inscribir"
-                        android:textColor="@color/blue"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
+            <!-- ASISTENCIAS -->
             <TextView
                 android:id="@+id/tv_asistencias_hoy"
                 android:layout_width="match_parent"
@@ -192,12 +90,13 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_card_white"
                 android:padding="10dp"
-                android:text="ASISTENCIAS DE HOY\n• Fútbol - 9 de 12 - Horario 17 a 19\n• Funcional - 6 de 12 - Horario 09 a 10"
+                android:text="ASISTENCIAS DE HOY"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 
+    <!-- BOTTOM NAV -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.addTextChangedListener
 import android.text.TextWatcher
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.adapter.SocioAdapter
 import android.widget.EditText
 import android.text.Editable
-
 import com.example.myapplication.database.AdminSQLiteOpenHelper
 
 class SocioActivity : AppCompatActivity() {
@@ -53,7 +51,7 @@ class SocioActivity : AppCompatActivity() {
         tvActividades = findViewById(R.id.tv_actividades)
 
         val etBuscar = findViewById<EditText>(R.id.et_buscar)
-        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
 
         etBuscar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -174,7 +172,7 @@ class SocioActivity : AppCompatActivity() {
     }
 
     private fun cargarSocios() {    val rvSocios = findViewById<RecyclerView>(R.id.rv_socios)
-        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
         val listaDeSocios = admin.obtenerTodosLosSocios()
         val adapter = SocioAdapter(listaDeSocios)
         rvSocios.layoutManager = LinearLayoutManager(this)

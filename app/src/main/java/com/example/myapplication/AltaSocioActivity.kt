@@ -26,10 +26,13 @@ class AltaSocioActivity : AppCompatActivity() {
     private lateinit var btnGuardar: Button
     private lateinit var btnCancelar: Button
 
+    private var ultimoIdCreado: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_alta_socio)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.alta_socio)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -37,93 +40,118 @@ class AltaSocioActivity : AppCompatActivity() {
         }
 
         val btnBack = findViewById<ImageButton>(R.id.btn_back_alta)
-        btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
+        btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
-
-        // Dentro de onCreate()
-
+        // ---- Inicialización de campos ----
         etNombre = findViewById(R.id.et_nombre)
-        etApellido = findViewById(R.id.et_apellido) // <-- Añadir
+        etApellido = findViewById(R.id.et_apellido)
         etDni = findViewById(R.id.et_dni)
-        etFechaNac = findViewById(R.id.et_fecha_nac) // <-- Añadir
-        etCelular = findViewById(R.id.et_celular) // <-- Añadir
-        etDomicilio = findViewById(R.id.et_domicilio) // <-- Añadir
-        etEmail = findViewById(R.id.et_email) // <-- Añadir
+        etFechaNac = findViewById(R.id.et_fecha_nac)
+        etCelular = findViewById(R.id.et_celular)
+        etDomicilio = findViewById(R.id.et_domicilio)
+        etEmail = findViewById(R.id.et_email)
         chkAptoFisico = findViewById(R.id.cb_apto_fisico)
         btnGuardar = findViewById(R.id.btn_guardar)
         btnCancelar = findViewById(R.id.btn_cancelar)
 
+        btnCancelar.setOnClickListener { mostrarDialogoCancelar() }
 
+        btnGuardar.setOnClickListener { guardarSocio() }
 
-        btnCancelar.setOnClickListener {
-            mostrarDialogoCancelar()
+        configurarBottomNav()
+    }
+
+    // -------------------- GUARDAR SOCIO --------------------
+    private fun guardarSocio() {
+        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
+
+        val nombre = etNombre.text.toString()
+        val apellido = etApellido.text.toString()
+        val dni = etDni.text.toString()
+        val fechaNac = etFechaNac.text.toString()
+        val celular = etCelular.text.toString()
+        val domicilio = etDomicilio.text.toString()
+        val email = etEmail.text.toString()
+        val aptoFisico = chkAptoFisico.isChecked
+
+        if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() ||
+            fechaNac.isEmpty() || celular.isEmpty() ||
+            domicilio.isEmpty() || email.isEmpty()) {
+
+            Toast.makeText(this, "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show()
+            return
         }
 
+        // Crear socio correctamente
+        val nuevoSocio = Socio(
+            id = null,
+            nombre = nombre,
+            apellido = apellido,
+            dni = dni,
+            fechaNacimiento = fechaNac,
+            celular = celular,
+            domicilio = domicilio,
+            email = email,
+            aptoFisico = aptoFisico,
+            fechaInscripcion = ""
+        )
 
-        btnGuardar.setOnClickListener {
-            // 1. Instanciamos nuestro AdminSQLiteOpenHelper
-            // El 'this' es el contexto de la Activity.
-            // "clubDeportivo14.db" será el nombre del archivo de la base de datos.
-            val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 1)
+        val idSocio = admin.agregarSocio(nuevoSocio)
 
-            // 2. Recolectamos los datos de la interfaz
-            val nombre = etNombre.text.toString()
-            val apellido = etApellido.text.toString()
-            val dni = etDni.text.toString()
-            val fechaNac = etFechaNac.text.toString()
-            val celular = etCelular.text.toString()
-            val domicilio = etDomicilio.text.toString()
-            val email = etEmail.text.toString()
-            val aptoFisico = chkAptoFisico.isChecked
+        ultimoIdCreado = idSocio
 
-            // 3. Validamos que los campos no estén vacíos
-            if (nombre.isNotEmpty() && apellido.isNotEmpty() && dni.isNotEmpty() && fechaNac.isNotEmpty() &&
-                celular.isNotEmpty() && domicilio.isNotEmpty() && email.isNotEmpty()) {
+        if (idSocio > -1) {
+            mostrarDialogoExito("Socio registrado correctamente.\nID Socio: $idSocio")
+        } else {
+            Toast.makeText(this, "Error al registrar el socio. DNI duplicado?", Toast.LENGTH_LONG).show()
+        }
+    }
 
-                // 4. Creamos el objeto Socio con los datos recolectados.
-                // El 'id' se pone como null porque la base de datos lo generará automáticamente.
-                // La 'fechaInscripcion' se pone vacía porque la base de datos la pondrá por defecto.
-                val nuevoSocio = Socio(
-                    id = null,
-                    nombre = nombre,
-                    apellido = apellido,
-                    dni = dni,
-                    fechaNacimiento = fechaNac,
-                    celular = celular,
-                    domicilio = domicilio,
-                    email = email,
-                    aptoFisico = aptoFisico,
-                    fechaInscripcion = "" // Se deja vacío, la BD usa CURRENT_TIMESTAMP
-                )
+    // -------------------- DIÁLOGOS --------------------
+    private fun mostrarDialogoCancelar() {
+        AlertDialog.Builder(this)
+            .setTitle("Advertencia")
+            .setMessage("¿Desea cancelar el alta de usuario?")
+            .setPositiveButton("Sí") { _, _ -> irMenuSocios() }
+            .setNegativeButton("No", null)
+            .show()
+    }
 
-                // 5. Llamamos a la función para agregar el socio a la base de datos.
-                val idSocio = admin.agregarSocio(nuevoSocio)
+    private fun mostrarDialogoExito(mensaje: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Éxito")
+            .setMessage(mensaje)
+            .setPositiveButton("Aceptar") { _, _ -> preguntarPagoCuota() }
+            .setCancelable(false)
+            .show()
+    }
 
-                // 6. Verificamos si se guardó correctamente y mostramos el diálogo
-                if (idSocio > -1) {
-                    // Éxito: el socio fue insertado. El 'idSocio' es el ID que le dio la BD.
-                    mostrarDialogoExito("Socio registrado correctamente.\nID Socio: $idSocio")
-                } else {
-                    // Error: algo falló al insertar en la base de datos.
-                    Toast.makeText(this, "Error al registrar el socio. DNI duplicado?", Toast.LENGTH_LONG).show()
-                }
-
-            } else {
-                // Si algún campo está vacío, mostramos un mensaje de error.
-                Toast.makeText(this, "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show()
+    private fun preguntarPagoCuota() {
+        AlertDialog.Builder(this)
+            .setTitle("Pago de cuota")
+            .setMessage("¿Desea realizar el pago ahora?")
+            .setPositiveButton("Sí") { _, _ ->
+                val intent = Intent(this, FormularioPagoSocioActivity::class.java)
+                intent.putExtra("nroSocio", ultimoIdCreado)
+                startActivity(intent)
             }
-        }
+            .setNegativeButton("No") { _, _ -> irMenuSocios() }
+            .show()
+    }
 
+    // -------------------- NAVEGACIÓN --------------------
+    private fun irMenuSocios() {
+        val intent = Intent(this, SocioActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
 
+    private fun configurarBottomNav() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    startActivity(intent)
+                    startActivity(Intent(this, MenuPrincipalActivity::class.java))
                     true
                 }
                 R.id.nav_qr -> {
@@ -139,55 +167,6 @@ class AltaSocioActivity : AppCompatActivity() {
         }
     }
 
-    private fun mostrarDialogoCancelar() {
-        AlertDialog.Builder(this)
-            .setTitle("Advertencia")
-            .setMessage("¿Desea cancelar el alta de usuario?")
-            .setPositiveButton("Sí") { _, _ ->
-                irMenuSocios()
-            }
-            .setNegativeButton("No", null)
-            .show()
-    }
-
-
-    private fun mostrarDialogoExito(mensaje: String) {
-        AlertDialog.Builder(this)
-            .setTitle("Éxito")
-            .setMessage(mensaje) // <-- ¡CORREGIDO! Ahora usa el mensaje dinámico
-            .setPositiveButton("Aceptar") { _, _ ->
-                preguntarPagoCuota()
-            }
-            .setCancelable(false) // Buena práctica: evita que se cierre por accidente
-            .show()
-    }
-
-
-    private fun preguntarPagoCuota() {
-        AlertDialog.Builder(this)
-            .setTitle("Pago de cuota")
-            .setMessage("¿Desea realizar el pago ahora?")
-            .setPositiveButton("Sí") { _, _ ->
-                irAPagoSocio()
-            }
-            .setNegativeButton("No") { _, _ ->
-                irMenuSocios()
-            }
-            .show()
-    }
-
-    private fun irMenuSocios() {
-        val intent = Intent(this, SocioActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-    }
-
-    private fun irAPagoSocio() {
-        val intent = Intent(this, FormularioPagoSocioActivity::class.java)
-        startActivity(intent)
-    }
-
-    // Menú inferior desplegable
     private fun showUserMenu() {
         val bottomSheet = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
@@ -195,17 +174,7 @@ class AltaSocioActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
             bottomSheet.dismiss()
-            val intent = Intent(this, PerfilUsuarioActivity::class.java)
-            startActivity(intent)
-        }
-
-        view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
-            Toast.makeText(this, "Abrir Ajuste de seguridad", Toast.LENGTH_SHORT).show()
-            bottomSheet.dismiss()
-        }
-        view.findViewById<LinearLayout>(R.id.ll_politica).setOnClickListener {
-            Toast.makeText(this, "Abrir Política de privacidad", Toast.LENGTH_SHORT).show()
-            bottomSheet.dismiss()
+            startActivity(Intent(this, PerfilUsuarioActivity::class.java))
         }
         view.findViewById<LinearLayout>(R.id.ll_salir).setOnClickListener {
             bottomSheet.dismiss()
@@ -216,17 +185,15 @@ class AltaSocioActivity : AppCompatActivity() {
     }
 
     private fun showSalirDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Salir")
-        builder.setMessage("¿Estás seguro que deseas cerrar sesión?")
-        builder.setPositiveButton("Sí") { _, _ ->
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
-        builder.setNegativeButton("No") { dialog, _ ->
-            dialog.dismiss()
-        }
-        builder.show()
+        AlertDialog.Builder(this)
+            .setTitle("Salir")
+            .setMessage("¿Estás seguro que deseas cerrar sesión?")
+            .setPositiveButton("Sí") { _, _ ->
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }

@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -10,10 +9,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myapplication.database.AdminSQLiteOpenHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-
+import androidx.appcompat.widget.AppCompatButton
+import android.widget.TextView
 class ActividadesActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,17 +27,34 @@ class ActividadesActivity : AppCompatActivity() {
             insets
         }
 
-        val btnBack = findViewById<ImageButton>(R.id.btn_back_actividades)
-        btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        // Traer actividades de la BD
+        val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
+        val actividades = admin.obtenerActividades()
+
+        // Armamos el texto completo dentro de la card
+        val tvCard = findViewById<TextView>(R.id.tv_detalle_actividades)
+
+        if (actividades.isEmpty()) {
+            tvCard.text = "No hay actividades cargadas."
+        } else {
+            val texto = actividades.joinToString("\n\n") { act ->
+                "• ${act.nombre}\n$ ${act.precio}"
+            }
+            tvCard.text = texto
         }
 
-        val btnInscripcion = findViewById<Button>(R.id.btn_inscripcion)
+        // Botón INSCRIPCIÓN → abre pantalla donde sí se muestran las cards
+        val btnInscripcion = findViewById<AppCompatButton>(R.id.btn_inscripcion)
         btnInscripcion.setOnClickListener {
             val intent = Intent(this, ActividadesPagoActivity::class.java)
             startActivity(intent)
         }
 
+        // Botón back
+        findViewById<ImageButton>(R.id.btn_back_actividades).setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        // Menú inferior
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -58,6 +77,10 @@ class ActividadesActivity : AppCompatActivity() {
         }
     }
 
+    // -----------------------------------------
+    //  MENU INFERIOR
+    // -----------------------------------------
+
     private fun showUserMenu() {
         val bottomSheet = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_menu, null)
@@ -65,10 +88,8 @@ class ActividadesActivity : AppCompatActivity() {
 
         view.findViewById<LinearLayout>(R.id.ll_perfil).setOnClickListener {
             bottomSheet.dismiss()
-            val intent = Intent(this, PerfilUsuarioActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, PerfilUsuarioActivity::class.java))
         }
-
 
         view.findViewById<LinearLayout>(R.id.ll_ajuste).setOnClickListener {
             Toast.makeText(this, "Abrir Ajuste de seguridad", Toast.LENGTH_SHORT).show()

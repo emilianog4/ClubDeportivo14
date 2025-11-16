@@ -12,7 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-
+import com.example.myapplication.database.AdminSQLiteOpenHelper
+import android.widget.TextView
 class PagosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,36 @@ class PagosActivity : AppCompatActivity() {
             val intent = Intent(this, ActividadesPagoActivity::class.java)
             startActivity(intent)
         }
+        val btnHistorial = findViewById<Button>(R.id.btn_historial)
+        val tvHistorial = findViewById<TextView>(R.id.tv_historial)
 
+        btnHistorial.setOnClickListener {
+            val db = AdminSQLiteOpenHelper(this, "clubDeportivo14", null, 6)
+            val lista = db.obtenerPagosProximosAVencerGlobal()
+
+            if (lista.isEmpty()) {
+                tvHistorial.text = "No hay cuotas próximas a vencer en los próximos 7 días."
+                return@setOnClickListener
+            }
+
+            val builder = StringBuilder()
+
+            for (item in lista) {
+                builder.append(
+                    "Socio: ${item["socio"]}\n" +
+                            "Periodo: ${item["periodo"]}\n" +
+                            "Importe: $${item["importe"]}\n" +
+                            "Días restantes: ${item["diasRestantes"]} días\n" +
+                            "-----------------------------\n"
+                )
+            }
+
+            tvHistorial.text = builder.toString()
+        }
+        val btnLimpiar = findViewById<Button>(R.id.btn_limpiar_pagos)
+        btnLimpiar.setOnClickListener {
+            tvHistorial.text = "HISTORIAL"
+        }
         val btnBack = findViewById<ImageButton>(R.id.btn_back_pagos)
         btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()

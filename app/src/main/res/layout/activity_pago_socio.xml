@@ -42,8 +42,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <!-- 📌 Buscador -->
+    <!-- 🔍 Buscador -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,16 +51,28 @@
 
         <EditText
             android:id="@+id/et_buscar_socio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_edittext_white"
-            android:drawableEnd="@drawable/ic_search"
             android:hint="Buscar socio..."
             android:padding="10dp"
             android:textColor="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/btn_buscar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rounded_button_white"
+            android:padding="10dp"
+            android:src="@drawable/ic_search"
+            android:contentDescription="Buscar socio" />
     </LinearLayout>
 
-    <!-- 📄 Formulario -->
+
+
+    <!-- 📄 FORMULARIO -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -73,7 +84,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Tarjeta azul clara -->
+            <!-- Tarjeta Azul Clara -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,15 +97,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="4dp">
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Nro. Socio"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" />
 
                     <EditText
                         android:id="@+id/et_nro_socio"
@@ -102,12 +112,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edittext_white"
                         android:padding="6dp"
-                        android:enabled="false"
-                        android:textColor="@android:color/black"
-                        android:text="123456" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
-                <!-- Cantidad de Cuotas (Spinner) -->
+                <!-- Cuotas -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Cantidad Cuotas"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" />
 
                     <Spinner
                         android:id="@+id/spinner_cuotas"
@@ -128,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edittext_white"
                         android:padding="6dp"
-                        android:spinnerMode="dropdown"/>
+                        android:spinnerMode="dropdown" />
                 </LinearLayout>
 
                 <!-- Importe -->
@@ -144,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Importe"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" />
 
                     <EditText
                         android:id="@+id/et_importe"
@@ -152,11 +160,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edittext_white"
                         android:padding="6dp"
-                        android:textColor="@android:color/black"
-                        android:text="$50.000,00" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
-                <!-- Forma de Pago (Spinner) -->
+                <!-- Forma de Pago -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Forma de Pago"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" />
 
                     <Spinner
                         android:id="@+id/spinner_pago"
@@ -177,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edittext_white"
                         android:padding="6dp"
-                        android:spinnerMode="dropdown"/>
+                        android:spinnerMode="dropdown" />
                 </LinearLayout>
 
                 <!-- Periodo -->
@@ -193,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Periodo"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" />
 
                     <EditText
                         android:id="@+id/et_periodo"
@@ -201,8 +208,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edittext_white"
                         android:padding="6dp"
-                        android:textColor="@android:color/black"
-                        android:text="Sep - Oct /2025" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -234,10 +240,11 @@
                     android:text="Cancelar"
                     android:textColor="@color/blue" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- 🔸 Bottom Navigation -->
+    <!-- 🔸 Bottom Nav -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -246,4 +253,5 @@
         app:itemIconTint="@color/blue"
         app:itemTextColor="@color/blue"
         app:menu="@menu/bottom_nav_menu" />
+
 </LinearLayout>
