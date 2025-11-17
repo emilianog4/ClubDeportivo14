@@ -60,13 +60,13 @@ class AltaNoSocioActivity : AppCompatActivity() {
 
             val admin = AdminSQLiteOpenHelper(this, "clubDeportivo14.db", null, 6)
 
-            // 🔥 VALIDAR DNI VACÍO
+            //VALIDAR DNI VACÍO
             if (dniIngresado.isEmpty()) {
                 Toast.makeText(this, "Debe ingresar un DNI", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 🔥 VALIDAR QUE NO SEA SOCIO
+            //VALIDAR QUE NO SEA SOCIO
             val socioExiste = admin.buscarSocioPorDni(dniIngresado)
 
             if (socioExiste != null) {
